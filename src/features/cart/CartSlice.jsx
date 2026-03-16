@@ -17,6 +17,21 @@ const cartSlice = createSlice({
         };
       }
     },
+    updateQuantity: (state, action) => {
+      const { id, quantity } = action.payload;
+      const item = state.items[id];
+
+      if (!item) {
+        return;
+      }
+
+      if (quantity <= 0) {
+        delete state.items[id];
+        return;
+      }
+
+      item.quantity = quantity;
+    },
     increaseQuantity: (state, action) => {
       const item = state.items[action.payload];
       if (item) {
@@ -35,7 +50,8 @@ const cartSlice = createSlice({
   },
 });
 
-export const { addItem, increaseQuantity, decreaseQuantity, removeItem } = cartSlice.actions;
+export const { addItem, updateQuantity, increaseQuantity, decreaseQuantity, removeItem } =
+  cartSlice.actions;
 
 export const selectCartItems = (state) => Object.values(state.cart.items);
 export const selectCartCount = (state) =>
