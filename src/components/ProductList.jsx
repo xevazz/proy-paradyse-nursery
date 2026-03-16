@@ -22,6 +22,14 @@ const plantCategories = [
         image:
           'https://images.unsplash.com/photo-1512428813834-c702c7702b78?auto=format&fit=crop&w=600&q=80',
       },
+      {
+        id: 'rosemary-air',
+        name: 'Rosemary Air',
+        description: 'Woody, aromatic rosemary ideal for bright indoor corners.',
+        price: 15,
+        image:
+          'https://images.unsplash.com/photo-1471943311424-646960669fbc?auto=format&fit=crop&w=600&q=80',
+      },
     ],
   },
   {
@@ -43,6 +51,14 @@ const plantCategories = [
         price: 17,
         image:
           'https://images.unsplash.com/photo-1463154545680-d59320fd685d?auto=format&fit=crop&w=600&q=80',
+      },
+      {
+        id: 'peace-lily-care',
+        name: 'Peace Lily Care',
+        description: 'Air-purifying beauty with elegant white blooms.',
+        price: 24,
+        image:
+          'https://images.unsplash.com/photo-1593691509543-c55fb32e7355?auto=format&fit=crop&w=600&q=80',
       },
     ],
   },
@@ -66,16 +82,46 @@ const plantCategories = [
         image:
           'https://images.unsplash.com/photo-1485955900006-10f4d324d411?auto=format&fit=crop&w=600&q=80',
       },
+      {
+        id: 'zz-steady',
+        name: 'ZZ Steady',
+        description: 'A resilient glossy-leaf plant for low-maintenance homes.',
+        price: 21,
+        image:
+          'https://images.unsplash.com/photo-1598880940080-ff9a29891b85?auto=format&fit=crop&w=600&q=80',
+      },
     ],
   },
 ];
 
-function ProductList({ onAddToCart, onOpenCart }) {
+function ProductList({ onAddToCart, onOpenCart, onGoHome, onGoProducts, cartCount }) {
   const cartItems = useSelector(selectCartItems);
   const addedIds = new Set(cartItems.map((item) => item.id));
 
   return (
     <main className="content-page">
+      <header className="navbar">
+        <button className="brand-button" onClick={onGoHome}>
+          Paradise Nursery
+        </button>
+        <nav className="nav-links" aria-label="Main navigation">
+          <button className="nav-link" onClick={onGoHome}>
+            Inicio
+          </button>
+          <button className="nav-link active" onClick={onGoProducts}>
+            Plantas
+          </button>
+          <button className="nav-link" onClick={onOpenCart}>
+            Carrito
+          </button>
+        </nav>
+        <button className="cart-indicator" onClick={onOpenCart}>
+          <span role="img" aria-label="cart">
+            🛒
+          </span>
+          <span>{cartCount}</span>
+        </button>
+      </header>
       <section className="page-heading">
         <div>
           <p className="section-eyebrow">Shop Indoor Favorites</p>

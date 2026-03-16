@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import AboutUs from './components/AboutUs';
 import ProductList from './components/ProductList';
@@ -14,34 +14,41 @@ import {
 } from './features/cart/CartSlice';
 
 function App() {
-  const [currentPage, setCurrentPage] = useState('landing');
+  const [showProductList, setShowProductList] = useState(false);
+  const [showCart, setShowCart] = useState(false);
   const dispatch = useDispatch();
   const cartItems = useSelector(selectCartItems);
   const cartCount = useSelector(selectCartCount);
   const cartTotal = useSelector(selectCartTotal);
 
-  const navigationItems = useMemo(
-    () => [
-      { id: 'landing', label: 'Inicio' },
-      { id: 'products', label: 'Plantas' },
-      { id: 'cart', label: 'Carrito' },
-    ],
-    [],
-  );
+  const goToLanding = () => {
+    setShowProductList(false);
+    setShowCart(false);
+  };
+
+  const goToProducts = () => {
+    setShowProductList(true);
+    setShowCart(false);
+  };
+
+  const goToCart = () => {
+    setShowCart(true);
+    setShowProductList(false);
+  };
 
   const renderContent = () => {
-    if (currentPage === 'landing') {
+    if (!showProductList && !showCart) {
       return (
         <main className="landing-page">
           <section className="hero-content">
             <p className="brand-tag">Paradise Nursery</p>
-            <h1>Bring nature home with carefully selected indoor plants</h1>
+            <h1>Welcome to Paradise Nursery</h1>
             <p className="hero-copy">
               Discover beautiful plants for every room, from aromatic greens to low-maintenance
               favorites that brighten your day.
             </p>
             <div className="hero-actions">
-              <button className="primary-button" onClick={() => setCurrentPage('products')}>
+              <button className="primary-button" onClick={goToProducts}>
                 Comenzar
               </button>
             </div>
@@ -51,11 +58,14 @@ function App() {
       );
     }
 
-    if (currentPage === 'products') {
+    if (showProductList) {
       return (
         <ProductList
           onAddToCart={(product) => dispatch(addItem(product))}
-          onOpenCart={() => setCurrentPage('cart')}
+          onOpenCart={goToCart}
+          onGoHome={goToLanding}
+          onGoProducts={goToProducts}
+          cartCount={cartCount}
         />
       );
     }
@@ -67,38 +77,15 @@ function App() {
         onIncrease={(id) => dispatch(increaseQuantity(id))}
         onDecrease={(id) => dispatch(decreaseQuantity(id))}
         onRemove={(id) => dispatch(removeItem(id))}
-        onContinueShopping={() => setCurrentPage('products')}
+        onGoHome={goToLanding}
+        onOpenCart={goToCart}
+        onContinueShopping={goToProducts}
+        cartCount={cartCount}
       />
     );
   };
 
-  return (
-    <div className="app-shell">
-      <header className="navbar">
-        <button className="brand-button" onClick={() => setCurrentPage('landing')}>
-          Paradise Nursery
-        </button>
-        <nav className="nav-links" aria-label="Main navigation">
-          {navigationItems.map((item) => (
-            <button
-              key={item.id}
-              className={currentPage === item.id ? 'nav-link active' : 'nav-link'}
-              onClick={() => setCurrentPage(item.id)}
-            >
-              {item.label}
-            </button>
-          ))}
-        </nav>
-        <button className="cart-indicator" onClick={() => setCurrentPage('cart')}>
-          <span role="img" aria-label="cart">
-            🛒
-          </span>
-          <span>{cartCount}</span>
-        </button>
-      </header>
-      {renderContent()}
-    </div>
-  );
+  return <div className="app-shell">{renderContent()}</div>;
 }
 
 export default App;

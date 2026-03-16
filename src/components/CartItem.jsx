@@ -1,18 +1,57 @@
 function CartItem({
   cartItems,
-  cartTotal,
   onIncrease,
   onDecrease,
   onRemove,
+  onGoHome,
+  onOpenCart,
   onContinueShopping,
+  cartCount,
 }) {
+  const getItemTotal = (item) => item.price * item.quantity;
+  const calculatedCartTotal = cartItems.reduce((total, item) => total + getItemTotal(item), 0);
+
+  const handleIncrease = (id) => {
+    onIncrease(id);
+  };
+
+  const handleDecrease = (id) => {
+    onDecrease(id);
+  };
+
+  const handleRemove = (id) => {
+    onRemove(id);
+  };
+
   return (
     <main className="content-page">
+      <header className="navbar">
+        <button className="brand-button" onClick={onGoHome}>
+          Paradise Nursery
+        </button>
+        <nav className="nav-links" aria-label="Main navigation">
+          <button className="nav-link" onClick={onGoHome}>
+            Inicio
+          </button>
+          <button className="nav-link" onClick={onContinueShopping}>
+            Plantas
+          </button>
+          <button className="nav-link active" onClick={onOpenCart}>
+            Carrito
+          </button>
+        </nav>
+        <button className="cart-indicator" onClick={onOpenCart}>
+          <span role="img" aria-label="cart">
+            🛒
+          </span>
+          <span>{cartCount}</span>
+        </button>
+      </header>
       <section className="page-heading">
         <div>
           <p className="section-eyebrow">Shopping Cart</p>
           <h1>Your selected plants</h1>
-          <p className="cart-total">Total del carrito: ${cartTotal.toFixed(2)}</p>
+          <p className="cart-total">Total del carrito: ${calculatedCartTotal.toFixed(2)}</p>
         </div>
       </section>
 
@@ -27,7 +66,7 @@ function CartItem({
       ) : (
         <section className="cart-list">
           {cartItems.map((item) => {
-            const itemTotal = item.price * item.quantity;
+            const itemTotal = getItemTotal(item);
 
             return (
               <article key={item.id} className="cart-card">
@@ -44,15 +83,15 @@ function CartItem({
                 </div>
                 <div className="cart-actions">
                   <div className="quantity-controls">
-                    <button className="quantity-button" onClick={() => onDecrease(item.id)}>
+                    <button className="quantity-button" onClick={() => handleDecrease(item.id)}>
                       −
                     </button>
                     <span>{item.quantity}</span>
-                    <button className="quantity-button" onClick={() => onIncrease(item.id)}>
+                    <button className="quantity-button" onClick={() => handleIncrease(item.id)}>
                       +
                     </button>
                   </div>
-                  <button className="secondary-button" onClick={() => onRemove(item.id)}>
+                  <button className="secondary-button" onClick={() => handleRemove(item.id)}>
                     Eliminar
                   </button>
                 </div>
