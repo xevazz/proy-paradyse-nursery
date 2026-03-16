@@ -1,0 +1,124 @@
+import { useSelector } from 'react-redux';
+import { selectCartItems } from '../features/cart/CartSlice';
+
+const plantCategories = [
+  {
+    title: 'Aromatic Plants',
+    description: 'Fresh scents and elegant foliage to create a relaxing atmosphere.',
+    items: [
+      {
+        id: 'lavender-glow',
+        name: 'Lavender Glow',
+        description: 'A fragrant indoor lavender perfect for sunny windows.',
+        price: 18,
+        image:
+          'https://images.unsplash.com/photo-1466692476868-aef1dfb1e735?auto=format&fit=crop&w=600&q=80',
+      },
+      {
+        id: 'mint-breeze',
+        name: 'Mint Breeze',
+        description: 'Refreshing mint leaves ideal for kitchens and tea lovers.',
+        price: 14,
+        image:
+          'https://images.unsplash.com/photo-1512428813834-c702c7702b78?auto=format&fit=crop&w=600&q=80',
+      },
+    ],
+  },
+  {
+    title: 'Medicinal Plants',
+    description: 'Trusted favorites known for their soothing and practical benefits.',
+    items: [
+      {
+        id: 'aloe-haven',
+        name: 'Aloe Haven',
+        description: 'An easy-care aloe vera that thrives with minimal watering.',
+        price: 16,
+        image:
+          'https://images.unsplash.com/photo-1501004318641-b39e6451bec6?auto=format&fit=crop&w=600&q=80',
+      },
+      {
+        id: 'chamomile-soft',
+        name: 'Chamomile Soft',
+        description: 'Delicate blooms that add calm charm to bright spaces.',
+        price: 17,
+        image:
+          'https://images.unsplash.com/photo-1463154545680-d59320fd685d?auto=format&fit=crop&w=600&q=80',
+      },
+    ],
+  },
+  {
+    title: 'Low Maintenance Plants',
+    description: 'Reliable plants that look great even with a busy routine.',
+    items: [
+      {
+        id: 'snake-elegance',
+        name: 'Snake Elegance',
+        description: 'A sculptural snake plant that handles low light with ease.',
+        price: 22,
+        image:
+          'https://images.unsplash.com/photo-1545241047-6083a3684587?auto=format&fit=crop&w=600&q=80',
+      },
+      {
+        id: 'pothos-trail',
+        name: 'Pothos Trail',
+        description: 'A cascading pothos with lush leaves and forgiving care needs.',
+        price: 19,
+        image:
+          'https://images.unsplash.com/photo-1485955900006-10f4d324d411?auto=format&fit=crop&w=600&q=80',
+      },
+    ],
+  },
+];
+
+function ProductList({ onAddToCart, onOpenCart }) {
+  const cartItems = useSelector(selectCartItems);
+  const addedIds = new Set(cartItems.map((item) => item.id));
+
+  return (
+    <main className="content-page">
+      <section className="page-heading">
+        <div>
+          <p className="section-eyebrow">Shop Indoor Favorites</p>
+          <h1>Choose your next plant companion</h1>
+        </div>
+        <button className="secondary-button" onClick={onOpenCart}>
+          Ver carrito
+        </button>
+      </section>
+
+      {plantCategories.map((category) => (
+        <section key={category.title} className="category-section">
+          <div className="category-header">
+            <h2>{category.title}</h2>
+            <p>{category.description}</p>
+          </div>
+          <div className="product-grid">
+            {category.items.map((plant) => {
+              const isAdded = addedIds.has(plant.id);
+
+              return (
+                <article key={plant.id} className="product-card">
+                  <img src={plant.image} alt={plant.name} className="product-image" />
+                  <div className="product-copy">
+                    <h3>{plant.name}</h3>
+                    <p>{plant.description}</p>
+                    <span className="product-price">${plant.price.toFixed(2)}</span>
+                  </div>
+                  <button
+                    className={isAdded ? 'disabled-button' : 'primary-button'}
+                    onClick={() => onAddToCart(plant)}
+                    disabled={isAdded}
+                  >
+                    {isAdded ? 'Agregado' : 'Agregar al Carrito'}
+                  </button>
+                </article>
+              );
+            })}
+          </div>
+        </section>
+      ))}
+    </main>
+  );
+}
+
+export default ProductList;
