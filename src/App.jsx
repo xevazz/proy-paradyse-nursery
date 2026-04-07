@@ -49,7 +49,7 @@ function App() {
             </p>
             <div className="hero-actions">
               <button className="primary-button" onClick={goToProducts}>
-                Comenzar
+                Get Started
               </button>
             </div>
           </section>

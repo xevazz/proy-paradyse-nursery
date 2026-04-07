@@ -31,13 +31,13 @@ function CartItem({
         </button>
         <nav className="nav-links" aria-label="Main navigation">
           <button className="nav-link" onClick={onGoHome}>
-            Inicio
+            Home
           </button>
           <button className="nav-link" onClick={onContinueShopping}>
-            Plantas
+            Plants
           </button>
           <button className="nav-link active" onClick={onOpenCart}>
-            Carrito
+            Cart
           </button>
         </nav>
         <button className="cart-indicator" onClick={onOpenCart}>

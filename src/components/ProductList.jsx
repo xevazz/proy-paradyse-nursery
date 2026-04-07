@@ -30,6 +30,30 @@ const plantCategories = [
         image:
           'https://images.unsplash.com/photo-1471943311424-646960669fbc?auto=format&fit=crop&w=600&q=80',
       },
+      {
+        id: 'jasmine-mist',
+        name: 'Jasmine Mist',
+        description: 'Sweetly fragrant jasmine that brightens indoor spaces.',
+        price: 20,
+        image:
+          'https://images.unsplash.com/photo-1525310072745-f49212b5ac6d?auto=format&fit=crop&w=600&q=80',
+      },
+      {
+        id: 'lemon-balm',
+        name: 'Lemon Balm',
+        description: 'Soft citrus scent with calming foliage for windowsills.',
+        price: 13,
+        image:
+          'https://images.unsplash.com/photo-1492496913980-501348b61469?auto=format&fit=crop&w=600&q=80',
+      },
+      {
+        id: 'sweet-basil',
+        name: 'Sweet Basil',
+        description: 'Classic aromatic herb with lush edible leaves.',
+        price: 12,
+        image:
+          'https://images.unsplash.com/photo-1618375569909-3c8616cf7733?auto=format&fit=crop&w=600&q=80',
+      },
     ],
   },
   {
@@ -59,6 +83,30 @@ const plantCategories = [
         price: 24,
         image:
           'https://images.unsplash.com/photo-1593691509543-c55fb32e7355?auto=format&fit=crop&w=600&q=80',
+      },
+      {
+        id: 'eucalyptus-calm',
+        name: 'Eucalyptus Calm',
+        description: 'Refreshing leaves traditionally loved for wellness spaces.',
+        price: 23,
+        image:
+          'https://images.unsplash.com/photo-1470163395405-d2b80e7450ed?auto=format&fit=crop&w=600&q=80',
+      },
+      {
+        id: 'holy-basil-care',
+        name: 'Holy Basil Care',
+        description: 'A hardy medicinal favorite with earthy aroma.',
+        price: 18,
+        image:
+          'https://images.unsplash.com/photo-1514995669114-6081e934b693?auto=format&fit=crop&w=600&q=80',
+      },
+      {
+        id: 'sage-harmony',
+        name: 'Sage Harmony',
+        description: 'Silvery-green medicinal herb with soft textured leaves.',
+        price: 17,
+        image:
+          'https://images.unsplash.com/photo-1524592488941-966fdf7d4f69?auto=format&fit=crop&w=600&q=80',
       },
     ],
   },
@@ -90,6 +138,30 @@ const plantCategories = [
         image:
           'https://images.unsplash.com/photo-1598880940080-ff9a29891b85?auto=format&fit=crop&w=600&q=80',
       },
+      {
+        id: 'spider-easy',
+        name: 'Spider Easy',
+        description: 'Fast-growing and forgiving, great for beginners.',
+        price: 16,
+        image:
+          'https://images.unsplash.com/photo-1614594975525-e45190c55d0b?auto=format&fit=crop&w=600&q=80',
+      },
+      {
+        id: 'rubber-robust',
+        name: 'Rubber Robust',
+        description: 'Glossy leaves and sturdy growth with minimal care.',
+        price: 25,
+        image:
+          'https://images.unsplash.com/photo-1597055181300-e3633a917c9c?auto=format&fit=crop&w=600&q=80',
+      },
+      {
+        id: 'cast-iron-classic',
+        name: 'Cast Iron Classic',
+        description: 'Extremely tolerant houseplant for low-light corners.',
+        price: 26,
+        image:
+          'https://images.unsplash.com/photo-1463936575829-25148e1db1b8?auto=format&fit=crop&w=600&q=80',
+      },
     ],
   },
 ];
@@ -106,13 +178,13 @@ function ProductList({ onAddToCart, onOpenCart, onGoHome, onGoProducts, cartCoun
         </button>
         <nav className="nav-links" aria-label="Main navigation">
           <button className="nav-link" onClick={onGoHome}>
-            Inicio
+            Home
           </button>
           <button className="nav-link active" onClick={onGoProducts}>
-            Plantas
+            Plants
           </button>
           <button className="nav-link" onClick={onOpenCart}>
-            Carrito
+            Cart
           </button>
         </nav>
         <button className="cart-indicator" onClick={onOpenCart}>
